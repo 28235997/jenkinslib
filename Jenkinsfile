@@ -3,8 +3,12 @@
 @Library('jenkinslib') _
 
 def tools = new org.devops.tools()
-
-
+def deploy = new org.devops.deploy()
+def build = new org.devops.build()
+String srcUrl = "${env.srcUrl}"
+String branchName = "${env.branchName}"
+String buildType = "${env.buildType}"
+String buildType = "${env.buildShell}"
 
 //String workspace = "/opt/jenkins/workspace"
 
@@ -23,17 +27,26 @@ pipeline {
     }
 
     stages {
+        
+        stage("checkout"){
+            steps{
+                script{
+                    checkout([$class: 'GitSCM', branches: [[name: "${env.branchName}"]], extensions: [], userRemoteConfigs: [[credentialsId: 'github', url: "${env.srcUrl}"]]])
+                }
+            }
+        }
+        
         //下载代码
-        stage("GetCode"){ //阶段名称
-            when { environment name: 'test', value: 'abcd' }
+        stage("build"){ //阶段名称
+            //when { environment name: 'test', value: 'abcd' }
             steps{  //步骤
                 timeout(time:5, unit:"MINUTES"){   //步骤超时时间
                     script{ //填写运行代码
                         println('获取代码')
                         tools.PrintMes("获取代码",'green')
                         println("${test}")
-                        
-                        input id: 'Test', message: '我们是否要继续？', ok: '是，继续吧！', parameters: [choice(choices: ['a', 'b'], description: '', name: 'test1')], submitter: 'lizeyang,admin'
+                        build.Build(buildType,buildShell)
+                        //input id: 'Test', message: '我们是否要继续？', ok: '是，继续吧！', parameters: [choice(choices: ['a', 'b'], description: '', name: 'test1')], submitter: 'lizeyang,admin'
                     }
                 }
             }
