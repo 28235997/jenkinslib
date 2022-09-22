@@ -3,7 +3,7 @@
 @Library('jenkinslib') _
 
 def tools = new org.devops.tools()
-def deploy = new org.devops.deploy()
+//def deploy = new org.devops.deploy()
 def build = new org.devops.build()
 String srcUrl = "${env.srcUrl}"
 String branchName = "${env.branchName}"
