@@ -8,7 +8,7 @@ def build = new org.devops.build()
 String srcUrl = "${env.srcUrl}"
 String branchName = "${env.branchName}"
 String buildType = "${env.buildType}"
-String buildType = "${env.buildShell}"
+String buildShell = "${env.buildShell}"
 
 //String workspace = "/opt/jenkins/workspace"
 
