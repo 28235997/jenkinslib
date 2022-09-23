@@ -14,10 +14,11 @@ String buildShell = "${env.buildShell}"
 
 //Pipeline
 pipeline {
-    agent { node {  label any   //指定运行节点的标签或者名称
-                   // customWorkspace "${workspace}"   //指定运行工作目录（可选）
-            }
-    }
+//     agent { node {  label any   //指定运行节点的标签或者名称
+//                    // customWorkspace "${workspace}"   //指定运行工作目录（可选）
+//             }
+//     }
+    agent any
 
     options {
         //timestamps()  //日志会有时间
